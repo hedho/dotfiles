@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Function to display a progress bar
+show_progress() {
+  local progress=$1
+  local bar_width=50
+  local filled=$((progress * bar_width / 100))
+  local empty=$((bar_width - filled))
+
+  printf "\r["
+  printf "%${filled}s" | tr ' ' '#'
+  printf "%${empty}s" | tr ' ' '-'
+  printf "] %d%%" $progress
+}
+
+# Array of commands to execute (for clarity and progress tracking)
+commands=(
+  "cp -r /home/arianit/.config/waybar/config /home/arianit/dotfiles/waybar/"
+  "cp /home/arianit/.config/hypr/hyprland.conf /home/arianit/dotfiles/hypr/"
+  "cp /home/arianit/.config/kitty/kitty.conf /home/arianit/dotfiles/kitty/"
+  "cp /home/arianit/.config/fastfetch/config.jsonc /home/arianit/dotfiles/fastfetch/"
+)
+
+# Total number of commands
+total=${#commands[@]}
+current=0
+
+echo "Starting configuration backup..."
+
+# Execute each command and update progress
+for cmd in "${commands[@]}"; do
+  # Execute the command
+  if $cmd; then
+    # Increment progress
+    current=$((current + 1))
+    progress=$((current * 100 / total))
+    show_progress $progress
+  else
+    echo "Error executing: $cmd"
+    exit 1
+  fi
+done
+
+# Ensure 100% is displayed
+show_progress 100
+echo -e "\nConfiguration backup completed successfully!"
