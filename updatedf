@@ -17,7 +17,7 @@ show_progress() {
 commands=(
   "cp -r /home/arianit/.config/waybar/config /home/arianit/dotfiles/waybar/"
   "cp /home/arianit/.config/hypr/hyprland.conf /home/arianit/dotfiles/hypr/"
-  "cp /home/arianit/.config/kitty/kitty.conf /home/arianit/dotfiles/kitty/"
+  "cp -r /home/arianit/.config/ghostty /home/arianit/dotfiles/ghostty/"
   "cp /home/arianit/.config/fastfetch/config.jsonc /home/arianit/dotfiles/fastfetch/"
 )
 
